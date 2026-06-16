@@ -1,28 +1,23 @@
-
-
-
+# LEETCODE PROBLEM 560 SUBARRAY SUM EQUALS K
+# TIME COMPLEXITY:O(N) where N is the number of elements
+# SPACE COMPLEXITY: O(N) where N is the space required to make a hashmap of N elements
+# Any problem you faced while coding this: None
 
 class Solution(object):
-    def longestPalindrome(self, s):
+    def subarraySum(self, nums, k):
         """
-        :type s: str
+        :type nums: List[int]
+        :type k: int
         :rtype: int
         """
-        char_count = {}
-        for c in s:
-            char_count[c] = char_count.get(c, 0) + 1
+        map={0:1}
+        runningSum=0
+        count=0
+        for i in range(len(nums)):
+            runningSum+=nums[i]
+            diff=runningSum-k
+            if diff in map:
+                count+=map[diff]
+            map[runningSum]=map.get(runningSum,0)+1
+        return count
 
-        length = 0
-        has_odd = False
-        
-        for count in char_count.values():
-            if count % 2 == 0:
-                length += count
-            else:
-                length += count - 1
-                has_odd = True
-        
-        if has_odd:
-            length += 1
-        
-        return length         
